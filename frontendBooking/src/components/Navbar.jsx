@@ -1,4 +1,12 @@
-export default function Navbar({ user, activeTab, setActiveTab, onLogout }) {
+
+export default function Navbar({
+  user,
+  activeTab,
+  setActiveTab,
+  onLogout,
+  theme,
+  onToggleTheme,
+}) {
   return (
     <header className="navbar">
       <div className="navbar-brand">
@@ -30,6 +38,18 @@ export default function Navbar({ user, activeTab, setActiveTab, onLogout }) {
       </nav>
 
       <div className="navbar-user">
+        <button
+          type="button"
+          className="theme-toggle-btn"
+          onClick={onToggleTheme}
+          title="Ganti skema warna"
+        >
+          {theme === "uhamka"
+            ? "Tema: UHAMKA"
+            : theme === "default"
+            ? "Tema: Default"
+            : "Tema: GTA VI"}
+        </button>
         <span>{user.name}</span>
         <button className="btn-danger btn-sm" onClick={onLogout}>
           Keluar

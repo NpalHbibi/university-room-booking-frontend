@@ -1,3 +1,5 @@
+
+
 import { useEffect, useState } from "react";
 import { apiRequest } from "./api/client";
 import Navbar from "./components/Navbar";
@@ -6,7 +8,13 @@ import RoomsPage from "./components/RoomsPage";
 import BookingsPage from "./components/BookingsPage";
 import "./App.css";
 
+function getInitialTheme() {
+  const saved = localStorage.getItem("colorTheme");
+  return ["uhamka", "default", "gta6"].includes(saved) ? saved : "uhamka";
+}
+
 export default function App() {
+  const [theme, setTheme] = useState(getInitialTheme);
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -16,6 +24,19 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("colorTheme", theme);
+  }, [theme]);
+
+  function handleToggleTheme() {
+    setTheme((prev) => {
+      if (prev === "uhamka") return "default";
+      if (prev === "default") return "gta6";
+      return "uhamka";
+    });
+  }
 
   useEffect(() => {
     async function verifySession() {
@@ -70,7 +91,20 @@ export default function App() {
     return (
       <div className="center-screen">
         <form className="login-card" onSubmit={handleLogin}>
-          <h2>Login Sistem Booking Ruangan</h2>
+          <div className="login-top-bar">
+            <h2>Login Sistem Booking Ruangan</h2>
+            <button
+              type="button"
+              className="btn-secondary btn-sm"
+              onClick={handleToggleTheme}
+            >
+              {theme === "uhamka"
+                ? "UHAMKA"
+                : theme === "default"
+                ? "Default"
+                : "GTA VI"}
+            </button>
+          </div>
           {loginError && <div className="alert-error">{loginError}</div>}
           <label>
             Email
@@ -107,6 +141,8 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onLogout={handleLogout}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
       />
 
       <main className="main-content">

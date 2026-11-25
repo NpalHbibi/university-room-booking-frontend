@@ -23,7 +23,7 @@ export default function RoomsPage({ user }) {
   // State cek ketersediaan ruangan
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [checkDate, setCheckDate] = useState(
-    new Date().toISOString().slice(0, 10)
+    new Date().toLocaleDateString("en-CA")
   );
   const [availability, setAvailability] = useState(null);
 

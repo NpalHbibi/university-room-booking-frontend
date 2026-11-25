@@ -1,3 +1,126 @@
+
+:root,
+:root[data-theme="uhamka"] {
+  --brand-primary: #0c2340;
+  --brand-primary-dark: #071526;
+  --brand-primary-light: #153a66;
+  --brand-accent: #0056b3;
+  --brand-gold: #f59e0b;
+  --brand-gold-bright: #fbbf24;
+  --brand-gold-soft: #fffbeb;
+  --brand-gold-pill: #fef3c7;
+  --brand-gold-text: #78350f;
+
+  /* Background halaman disamakan dengan Login */
+  --page-bg: linear-gradient(135deg, #071526 0%, #0c2340 55%, #153a66 100%);
+  --page-heading-color: #ffffff;
+  --page-subtext-color: #cbd5e1;
+
+  --login-border-top: 5px solid #f59e0b;
+  --navbar-border-bottom: 4px solid #f59e0b;
+  --nav-active-bg: #f59e0b;
+  --nav-active-color: #0c2340;
+
+  --heading-border: 4px solid #f59e0b;
+  --card-border-top: 3px solid #f59e0b;
+  --card-accent-border: 1px solid rgba(255, 255, 255, 0.14);
+  --stat-card-bg: #ffffff;
+  --stat-card-border-top: 4px solid #f59e0b;
+  --stat-card-even-top: 4px solid #0056b3;
+  --stat-number-color: #0c2340;
+  --stat-even-number-color: #b45309;
+
+  --tab-bg: rgba(255, 255, 255, 0.1);
+  --tab-color: #e2e8f0;
+  --tab-border: rgba(255, 255, 255, 0.25);
+  --tab-active-bg: #f59e0b;
+  --tab-active-color: #0c2340;
+  --tab-active-border: #f59e0b;
+  --tab-active-shadow: 0 3px 10px rgba(245, 158, 11, 0.4);
+
+  --slot-box-bg: #fffbeb;
+  --slot-box-border: #fcd34d;
+  --slot-box-left: 4px solid #f59e0b;
+
+  --badge-admin-bg: #f59e0b;
+  --badge-admin-color: #0c2340;
+
+  --bg-card: #ffffff;
+  --bg-subtle: #f8fafc;
+  --table-head-bg: #08172b;
+  --table-head-color: #ffffff;
+  --table-head-border: #f59e0b;
+  --table-row-hover: #fffbeb;
+  --text-main: #0f172a;
+  --text-heading: #0c2340;
+  --text-muted: #475569;
+  --border-color: #cbd5e1;
+  --btn-primary-bg: #0056b3;
+  --btn-primary-hover: #0c2340;
+  --btn-secondary-bg: #e2e8f0;
+  --btn-secondary-hover: #cbd5e1;
+}
+
+:root[data-theme="default"] {
+  --brand-primary: #1e293b;
+  --brand-primary-dark: #0f172a;
+  --brand-primary-light: #334155;
+  --brand-accent: #2563eb;
+  --brand-gold: #2563eb;
+  --brand-gold-bright: #3b82f6;
+  --brand-gold-soft: #fef3c7;
+  --brand-gold-pill: #fef3c7;
+  --brand-gold-text: #92400e;
+
+  --page-bg: #f4f6f9;
+  --page-heading-color: #1f2937;
+  --page-subtext-color: #64748b;
+
+  --login-border-top: none;
+  --navbar-border-bottom: none;
+  --nav-active-bg: #334155;
+  --nav-active-color: #ffffff;
+
+  --heading-border: none;
+  --card-border-top: none;
+  --card-accent-border: 1px solid #e2e8f0;
+  --stat-card-bg: #ffffff;
+  --stat-card-border-top: none;
+  --stat-card-even-top: none;
+  --stat-number-color: #0f172a;
+  --stat-even-number-color: #0f172a;
+
+  --tab-bg: #ffffff;
+  --tab-color: #475569;
+  --tab-border: #cbd5e1;
+  --tab-active-bg: #1e293b;
+  --tab-active-color: #ffffff;
+  --tab-active-border: #1e293b;
+  --tab-active-shadow: none;
+
+  --slot-box-bg: #f8fafc;
+  --slot-box-border: #e2e8f0;
+  --slot-box-left: 1px solid #e2e8f0;
+
+  --badge-admin-bg: #fef3c7;
+  --badge-admin-color: #92400e;
+
+  --bg-card: #ffffff;
+  --bg-subtle: #f8fafc;
+  --table-head-bg: #f8fafc;
+  --table-head-color: #475569;
+  --table-head-border: #e2e8f0;
+  --table-row-hover: #f8fafc;
+  --text-main: #1f2937;
+  --text-heading: #1f2937;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --btn-primary-bg: #2563eb;
+  --btn-primary-hover: #1d4ed8;
+  --btn-secondary-bg: #e2e8f0;
+  --btn-secondary-hover: #cbd5e1;
+}
+
 * {
   box-sizing: border-box;
   font-family: system-ui, -apple-system, sans-serif;
@@ -5,8 +128,14 @@
 
 body {
   margin: 0;
-  background-color: #f4f6f9;
-  color: #1f2937;
+  min-height: 100vh;
+  background: var(--page-bg);
+  background-attachment: fixed;
+  color: var(--text-main);
+}
+
+.app-layout {
+  min-height: 100vh;
 }
 
 .center-screen {
@@ -15,24 +144,40 @@ body {
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  background: var(--page-bg);
 }
 
 .login-card {
   width: 100%;
   max-width: 380px;
-  background: #ffffff;
+  background: var(--bg-card);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-top: var(--login-border-top);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
+.login-top-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.login-card h2 {
+  color: var(--text-heading);
+  margin: 0;
+  font-size: 1.25rem;
+}
+
 .navbar {
-  background: #1e293b;
+  background: var(--brand-primary-dark);
   color: #ffffff;
   padding: 0.9rem 1.5rem;
+  border-bottom: var(--navbar-border-bottom);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -51,30 +196,66 @@ body {
 .nav-btn {
   background: transparent;
   border: none;
-  color: #cbd5e1;
-  padding: 0.45rem 0.85rem;
+  color: #e2e8f0;
+  padding: 0.45rem 0.9rem;
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.95rem;
+  transition: all 0.15s ease;
 }
 
-.nav-btn.active,
 .nav-btn:hover {
-  background: #334155;
+  background: var(--brand-primary-light);
   color: #ffffff;
+}
+
+.nav-btn.active {
+  background: var(--nav-active-bg);
+  color: var(--nav-active-color);
+  font-weight: 700;
+}
+
+.theme-toggle-btn {
+  background: var(--brand-primary-light);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--brand-gold);
+  color: var(--brand-primary);
+  border-color: var(--brand-gold);
 }
 
 .main-content {
   max-width: 1100px;
   margin: 1.5rem auto;
-  padding: 0 1rem;
+  padding: 0 1rem 2rem;
+}
+
+/* Judul & subteks langsung di atas latar halaman (Dashboard & Ruangan) */
+.main-content > section > h2 {
+  color: var(--page-heading-color);
+  padding-left: 0.75rem;
+  border-left: var(--heading-border);
+  margin-top: 0;
+  margin-bottom: 1.15rem;
+}
+
+.main-content > section > .info-text {
+  color: var(--page-subtext-color);
 }
 
 .card {
-  background: #ffffff;
+  background: var(--bg-card);
   padding: 1.25rem;
   border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  border: var(--card-accent-border);
+  border-top: var(--card-border-top);
+  box-shadow: 0 6px 18px rgba(7, 21, 38, 0.14);
   margin-bottom: 1.25rem;
 }
 
@@ -82,38 +263,59 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
+.card-header h3,
+.form-grid h3 {
+  color: var(--text-heading);
+  margin: 0;
+}
+
+/* Dashboard Statistik */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 1rem;
 }
 
 .stat-card {
-  background: #ffffff;
-  padding: 1.25rem;
+  background: var(--stat-card-bg);
+  padding: 1.35rem 1.25rem;
   border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  border: var(--card-accent-border);
+  border-top: var(--stat-card-border-top);
+  box-shadow: 0 6px 18px rgba(7, 21, 38, 0.14);
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.45rem;
+}
+
+.stat-card:nth-child(even) {
+  border-top: var(--stat-card-even-top);
 }
 
 .stat-card span {
   font-size: 0.875rem;
-  color: #64748b;
+  font-weight: 500;
+  color: var(--text-muted);
 }
 
 .stat-card strong {
-  font-size: 1.75rem;
-  color: #0f172a;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--stat-number-color);
+}
+
+.stat-card:nth-child(even) strong {
+  color: var(--stat-even-number-color);
 }
 
 .form-grid {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.95rem;
 }
 
 .grid-2 {
@@ -127,16 +329,27 @@ label {
   flex-direction: column;
   gap: 0.35rem;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--text-heading);
 }
 
 input,
 select,
 textarea {
   padding: 0.55rem 0.7rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 0.95rem;
+  color: var(--text-main);
+  background: #ffffff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.14);
 }
 
 .filter-row {
@@ -149,6 +362,7 @@ textarea {
 .btn-row {
   display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 button {
@@ -156,7 +370,8 @@ button {
   border: none;
   border-radius: 6px;
   padding: 0.55rem 1rem;
-  font-weight: 500;
+  font-weight: 600;
+  transition: all 0.15s ease;
 }
 
 .btn-sm {
@@ -165,17 +380,36 @@ button {
 }
 
 .btn-primary {
-  background: #2563eb;
+  background: var(--btn-primary-bg);
   color: #ffffff;
 }
 
 .btn-primary:hover {
-  background: #1d4ed8;
+  background: var(--btn-primary-hover);
+}
+
+/* Tombol aksi utama di header halaman Booking agar kontras di atas Navy */
+.page-header .btn-primary {
+  background: var(--brand-gold);
+  color: var(--brand-primary);
+}
+
+.page-header .btn-primary:hover {
+  background: var(--brand-gold-bright);
+}
+
+:root[data-theme="default"] .page-header .btn-primary {
+  background: var(--btn-primary-bg);
+  color: #ffffff;
 }
 
 .btn-secondary {
-  background: #e2e8f0;
-  color: #1e293b;
+  background: var(--btn-secondary-bg);
+  color: var(--text-heading);
+}
+
+.btn-secondary:hover {
+  background: var(--btn-secondary-hover);
 }
 
 .btn-danger {
@@ -183,11 +417,17 @@ button {
   color: #ffffff;
 }
 
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+/* Tabel Ruangan & Booking */
 .table-wrapper {
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 8px;
+  border: var(--card-accent-border);
   overflow-x: auto;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 18px rgba(7, 21, 38, 0.14);
 }
 
 .data-table {
@@ -197,39 +437,45 @@ button {
 
 .data-table th,
 .data-table td {
-  padding: 0.8rem 1rem;
+  padding: 0.85rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .data-table th {
-  background: #f8fafc;
-  font-size: 0.875rem;
-  color: #475569;
+  background: var(--table-head-bg);
+  color: var(--table-head-color);
+  border-bottom: 2px solid var(--table-head-border);
+  font-size: 0.85rem;
+  letter-spacing: 0.2px;
+}
+
+.data-table tbody tr:hover {
+  background: var(--table-row-hover);
 }
 
 .subtext {
   font-size: 0.82rem;
-  color: #64748b;
+  color: var(--text-muted);
   margin-top: 0.2rem;
 }
 
 .badge {
-  padding: 0.2rem 0.55rem;
+  padding: 0.22rem 0.65rem;
   border-radius: 999px;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .badge-admin {
-  background: #fef3c7;
-  color: #92400e;
+  background: var(--badge-admin-bg);
+  color: var(--badge-admin-color);
 }
 
 .badge-user,
 .badge-confirmed {
   background: #dbeafe;
-  color: #1e40af;
+  color: #1e3a8a;
 }
 
 .badge-active,
@@ -247,6 +493,7 @@ button {
 .alert-error {
   background: #fee2e2;
   color: #991b1b;
+  border-left: 4px solid #dc2626;
   padding: 0.75rem 1rem;
   border-radius: 6px;
   margin-bottom: 1rem;
@@ -255,11 +502,276 @@ button {
 .alert-success {
   background: #dcfce7;
   color: #166534;
+  border-left: 4px solid #16a34a;
   padding: 0.75rem 1rem;
   border-radius: 6px;
   margin-bottom: 1rem;
 }
 
 .info-text {
-  color: #64748b;
+  color: var(--text-muted);
+}
+
+/* Header Halaman BookingPage */
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-left: 0.75rem;
+  border-left: var(--heading-border);
+}
+
+.page-header h2 {
+  margin: 0;
+  color: var(--page-heading-color);
+}
+
+.page-header .subtext {
+  color: var(--page-subtext-color);
+}
+
+.alert-dismissible {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.alert-close {
+  background: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+  padding: 0 0.35rem;
+  line-height: 1;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.char-count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Preview Slot Jadwal di BookingPage */
+.slot-preview-box {
+  background: var(--slot-box-bg);
+  border: 1px solid var(--slot-box-border);
+  border-left: var(--slot-box-left);
+  border-radius: 6px;
+  padding: 0.8rem 0.95rem;
+}
+
+.slot-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.45rem;
+  font-size: 0.88rem;
+  color: var(--text-heading);
+}
+
+.slot-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.slot-pill {
+  background: #fee2e2;
+  color: #991b1b;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+}
+
+.inline-warning {
+  background: var(--brand-gold-pill);
+  color: var(--brand-gold-text);
+  border: 1px solid #f59e0b;
+  padding: 0.65rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* Status Tabs di BookingPage */
+.status-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tab-pill {
+  background: var(--tab-bg);
+  color: var(--tab-color);
+  border: 1px solid var(--tab-border);
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+}
+
+.tab-pill:hover {
+  border-color: var(--brand-gold);
+  color: #ffffff;
+}
+
+:root[data-theme="default"] .tab-pill:hover {
+  border-color: var(--brand-primary);
+  color: var(--text-heading);
+}
+
+.tab-pill.active {
+  background: var(--tab-active-bg);
+  color: var(--tab-active-color);
+  border-color: var(--tab-active-border);
+  box-shadow: var(--tab-active-shadow);
+  font-weight: 700;
+}
+
+.filter-grow {
+  flex: 1 1 240px;
+}
+
+.line-clamp {
+  max-width: 320px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 21, 38, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 50;
+}
+
+.modal-card {
+  background: var(--bg-card);
+  width: 100%;
+  max-width: 520px;
+  border-radius: 8px;
+  border-top: var(--login-border-top);
+  padding: 1.5rem;
+  box-shadow: 0 12px 30px rgba(7, 21, 38, 0.25);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.9rem;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detail-block {
+  margin-top: 0.9rem;
+}
+
+.detail-purpose {
+  margin: 0.3rem 0 0;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+:root[data-theme="gta6"] {
+  --brand-primary: #1a0b2e;
+  --brand-primary-dark: #0e061a;
+  --brand-primary-light: #2d144d;
+  --brand-accent: #ff2a85;
+  --brand-gold: #00f0ff;
+  --brand-gold-bright: #67f8ff;
+  --brand-gold-soft: #24103a;
+  --brand-gold-pill: #2d1247;
+  --brand-gold-text: #ff85c0;
+
+  --page-bg: linear-gradient(
+    135deg,
+    #120624 0%,
+    #2b0d4c 48%,
+    #6b144d 82%,
+    #ff6b35 100%
+  );
+  --page-heading-color: #ffffff;
+  --page-subtext-color: #ffd6eb;
+
+  --login-border-top: 5px solid #00f0ff;
+  --navbar-border-bottom: 4px solid #ff2a85;
+  --nav-active-bg: linear-gradient(90deg, #ff2a85 0%, #ff7a00 100%);
+  --nav-active-color: #ffffff;
+
+  --heading-border: 4px solid #00f0ff;
+  --card-border-top: 3px solid #ff2a85;
+  --card-accent-border: 1px solid rgba(0, 240, 255, 0.28);
+  --stat-card-bg: linear-gradient(180deg, #ffffff 0%, #fdf4ff 100%);
+  --stat-card-border-top: 4px solid #ff2a85;
+  --stat-card-even-top: 4px solid #00b8d9;
+  --stat-number-color: #9d174d;
+  --stat-even-number-color: #0e7490;
+
+  --tab-bg: rgba(14, 6, 26, 0.55);
+  --tab-color: #f5d0fe;
+  --tab-border: rgba(0, 240, 255, 0.35);
+  --tab-active-bg: #ff2a85;
+  --tab-active-color: #ffffff;
+  --tab-active-border: #ff2a85;
+  --tab-active-shadow: 0 3px 12px rgba(255, 42, 133, 0.5);
+
+  --slot-box-bg: #fdf2f8;
+  --slot-box-border: #f472b6;
+  --slot-box-left: 4px solid #ff2a85;
+
+  --badge-admin-bg: #ff2a85;
+  --badge-admin-color: #ffffff;
+
+  --bg-card: #ffffff;
+  --bg-subtle: #faf5ff;
+  --table-head-bg: #1a0b2e;
+  --table-head-color: #00f0ff;
+  --table-head-border: #ff2a85;
+  --table-row-hover: #fdf2f8;
+  --text-main: #180929;
+  --text-heading: #1a0b2e;
+  --text-muted: #581c87;
+  --border-color: #e9d5ff;
+  --btn-primary-bg: #ff2a85;
+  --btn-primary-hover: #db166c;
+  --btn-secondary-bg: #f3e8ff;
+  --btn-secondary-hover: #e9d5ff;
+}
+
+:root[data-theme="gta6"] .page-header .btn-primary {
+  background: #00e5ff;
+  color: #120624;
+}
+
+:root[data-theme="gta6"] .page-header .btn-primary:hover {
+  background: #67f8ff;
+}
+
+:root[data-theme="gta6"] .theme-toggle-btn:hover {
+  background: #ff2a85;
+  color: #ffffff;
+  border-color: #ff2a85;
 }
