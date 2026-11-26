@@ -89,6 +89,12 @@ export default function BookingsPage({ user }) {
     );
   }, [bookedSlots, form.start_time, form.end_time, isTimeRangeInvalid]);
 
+  useEffect(() => {
+    if (!success) return;
+    const t = setTimeout(() => setSuccess(""), 5000);
+    return () => clearTimeout(t);
+  }, [success]);
+
   async function loadRooms() {
     try {
       const res = await apiRequest("/rooms");
@@ -236,6 +242,19 @@ export default function BookingsPage({ user }) {
     }
   }
 
+  const durationHours =
+    (toSeconds(form.end_time) - toSeconds(form.start_time)) / 3600;
+
+  function setDuration(h) {
+    const endSec = Math.min(
+      toSeconds(form.start_time) + h * 3600,
+      23 * 3600 + 59 * 60
+    );
+    const hh = String(Math.floor(endSec / 3600)).padStart(2, "0");
+    const mm = String(Math.floor((endSec % 3600) / 60)).padStart(2, "0");
+    setForm((prev) => ({ ...prev, end_time: `${hh}:${mm}` }));
+  }
+
   const hasActiveFilters =
     filters.date || filters.room_id || filters.status || searchQuery.trim();
 
@@ -372,21 +391,45 @@ export default function BookingsPage({ user }) {
             </div>
           </div>
 
-          {/* Live Slot Availability Preview */}
+          <div className="chip-row">
+            <span className="subtext">Durasi cepat:</span>
+            {[1, 2, 3, 4].map((h) => (
+              <button
+                key={h}
+                type="button"
+                className={durationHours === h ? "chip active" : "chip"}
+                onClick={() => setDuration(h)}
+              >
+                {h} jam
+              </button>
+            ))}
+          </div>
+
           {form.room_id && form.booking_date && (
             <div className="slot-preview-box">
               <div className="slot-preview-header">
-                <strong>
-                  Jadwal Terpakai ({form.booking_date}):
-                </strong>
+                <strong>Jadwal {form.booking_date}</strong>
                 {loadingSlots && (
                   <span className="subtext">Memeriksa jadwal...</span>
                 )}
               </div>
 
+              <Timeline
+                slots={bookedSlots}
+                requested={
+                  isTimeRangeInvalid
+                    ? null
+                    : {
+                        start: form.start_time,
+                        end: form.end_time,
+                        conflict: Boolean(conflictingSlot),
+                      }
+                }
+              />
+
               {!loadingSlots && bookedSlots.length === 0 ? (
-                <p className="subtext">
-                  Seluruh slot jam masih kosong pada tanggal ini.
+                <p className="subtext" style={{ marginTop: "0.6rem" }}>
+                  Belum ada yang memesan. Semua jam tersedia.
                 </p>
               ) : (
                 <div className="slot-pill-list">
@@ -438,7 +481,7 @@ export default function BookingsPage({ user }) {
               className="btn-primary"
               disabled={submitting || isTimeRangeInvalid || Boolean(conflictingSlot)}
             >
-              {submitting ? "Memproses Booking..." : "Pesan Ruangan"}
+              {submitting ? "Memproses..." : "Pesan ruangan"}
             </button>
           </div>
         </form>
@@ -520,10 +563,31 @@ export default function BookingsPage({ user }) {
 
       {/* Tabel Daftar Booking */}
       {loading ? (
-        <div className="card info-text">Memuat daftar booking...</div>
+        <div className="table-wrapper">
+          <table className="data-table">
+            <tbody>
+              {[0, 1, 2, 3].map((i) => (
+                <tr key={i} className="sk-row">
+                  <td><span className="skeleton sk-line" /></td>
+                  <td><span className="skeleton sk-line" /></td>
+                  <td><span className="skeleton sk-line" /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : filteredBookings.length === 0 ? (
-        <div className="card info-text">
-          Tidak ada data booking yang sesuai dengan filter saat ini.
+        <div className="card empty-state">
+          <strong>
+            {hasActiveFilters ? "Tidak ada booking yang cocok" : "Belum ada booking"}
+          </strong>
+          <p className="subtext">
+            {hasActiveFilters
+              ? "Ubah atau reset filter untuk melihat data lain."
+              : user.role === "USER"
+              ? "Isi form di atas untuk memesan ruangan pertamamu."
+              : "Booking dari pengguna akan muncul di sini."}
+          </p>
         </div>
       ) : (
         <div className="table-wrapper">

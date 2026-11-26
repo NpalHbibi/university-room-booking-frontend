@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import { apiRequest } from "./api/client";
 import Navbar from "./components/Navbar";
@@ -24,6 +22,7 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
+  const [showPw, setShowPw] = useState(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -90,46 +89,94 @@ export default function App() {
   if (!user) {
     return (
       <div className="center-screen">
-        <form className="login-card" onSubmit={handleLogin}>
-          <div className="login-top-bar">
-            <h2>Login Sistem Booking Ruangan</h2>
-            <button
-              type="button"
-              className="btn-secondary btn-sm"
-              onClick={handleToggleTheme}
-            >
-              {theme === "uhamka"
-                ? "UHAMKA"
-                : theme === "default"
-                ? "Default"
-                : "GTA VI"}
+        <div className="login-shell">
+          <aside className="login-hero">
+            <div>
+              <div className="hero-title">
+                Pesan ruangan kampus tanpa menunggu persetujuan.
+              </div>
+              <p className="hero-sub">
+                Pilih ruangan, tanggal, dan jam. Kalau kosong, langsung
+                terkonfirmasi.
+              </p>
+            </div>
+            <div className="hero-strip" aria-hidden="true">
+              <div className="hero-row">
+                <span>Aula</span>
+                <div className="hero-track">
+                  <i className="busy" style={{ left: "18%", width: "30%" }} />
+                  <i className="free" style={{ left: "48%", width: "12%" }} />
+                </div>
+              </div>
+              <div className="hero-row">
+                <span>Lab 2</span>
+                <div className="hero-track">
+                  <i className="busy" style={{ left: "5%", width: "22%" }} />
+                  <i className="busy" style={{ left: "55%", width: "25%" }} />
+                </div>
+              </div>
+              <div className="hero-row">
+                <span>Ruang rapat</span>
+                <div className="hero-track">
+                  <i className="busy" style={{ left: "30%", width: "18%" }} />
+                  <i className="free" style={{ left: "48%", width: "18%" }} />
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <form className="login-card" onSubmit={handleLogin}>
+            <div className="login-top-bar">
+              <h2>Masuk</h2>
+              <button
+                type="button"
+                className="btn-secondary btn-sm"
+                onClick={handleToggleTheme}
+              >
+                {theme === "uhamka"
+                  ? "UHAMKA"
+                  : theme === "default"
+                  ? "Default"
+                  : "GTA VI"}
+              </button>
+            </div>
+            {loginError && <div className="alert-error">{loginError}</div>}
+            <label>
+              Email
+              <input
+                type="email"
+                required
+                autoComplete="username"
+                placeholder="nama@univ.ac.id"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
+            <label>
+              Password
+              <span className="pw-field">
+                <input
+                  type={showPw ? "text" : "password"}
+                  required
+                  autoComplete="current-password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="pw-toggle"
+                  onClick={() => setShowPw((v) => !v)}
+                >
+                  {showPw ? "Sembunyikan" : "Lihat"}
+                </button>
+              </span>
+            </label>
+            <button type="submit" className="btn-primary" disabled={loggingIn}>
+              {loggingIn ? "Memproses..." : "Masuk"}
             </button>
-          </div>
-          {loginError && <div className="alert-error">{loginError}</div>}
-          <label>
-            Email
-            <input
-              type="email"
-              required
-              placeholder="nama@univ.ac.id"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-          <label>
-            Password
-            <input
-              type="password"
-              required
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <button type="submit" className="btn-primary" disabled={loggingIn}>
-            {loggingIn ? "Memproses..." : "Masuk"}
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     );
   }
@@ -145,9 +192,9 @@ export default function App() {
         onToggleTheme={handleToggleTheme}
       />
 
-      <main className="main-content">
-        {activeTab === "dashboard" && <Dashboard user={user} />}
-        {activeTab === "rooms" && <RoomsPage user={user} />}
+      <main className="main-content page-enter" key={activeTab}>
+        {activeTab === "dashboard" && <Dashboard user={user} onNavigate={setActiveTab} />}
+        {activeTab === "rooms" && <RoomsPage user={user} onNavigate={setActiveTab} />}
         {activeTab === "bookings" && <BookingsPage user={user} />}
       </main>
     </div>
